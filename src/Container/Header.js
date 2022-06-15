@@ -11,20 +11,20 @@ function Header(props) {
         <i className="bi bi-phone" /> +91 9988776655
       </div>
       <div className="d-none d-lg-flex social-links align-items-center">
-        <a href="#" className="twitter"><i className="bi bi-twitter" /></a>
-        <a href="#" className="facebook"><i className="bi bi-facebook" /></a>
-        <a href="#" className="instagram"><i className="bi bi-instagram" /></a>
-        <a href="#" className="linkedin"><i className="bi bi-linkedin" /></a>
+        <NavLink to ="/" className="twitter"><i className="bi bi-twitter" /></NavLink>
+        <NavLink to ="/" className="facebook"><i className="bi bi-facebook" /></NavLink>
+        <NavLink to ="/" className="instagram"><i className="bi bi-instagram" /></NavLink>
+        <NavLink to ="/" className="linkedin"><i className="bi bi-linkedin" /></NavLink>
       </div>
     </div>
   </div>
   <header id="header" className="fixed-top">
     <div className="container d-flex align-items-center">
       <div className="logo">
-        <a href="index.html">
+        <NavLink to="index.html">
           <h1 className="logo me-auto">City</h1><br />
           <h2 className="logo-tiny-text me-auto">Multispeciality Hospital</h2>
-        </a>
+        </NavLink>
       </div>
       <nav id="navbar" className="navbar order-last order-lg-0">
         <ul>

@@ -24,7 +24,6 @@ function App() {
         <Route exact path="/contact" ><Contact/></Route>
         <Route exact path="/appointment" ><Appoinment/></Route>
         <Route exact path="/login" ><Login/></Route>
-        
       </Switch>
       <Footer/>
     </div>
