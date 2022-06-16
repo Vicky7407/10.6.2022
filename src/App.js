@@ -9,6 +9,7 @@ import Doctors from './Container/Doctors';
 import About from './Container/About';
 import Contact from './Container/Contact';
 import Appoinment from './Container/Appoinment';
+import Medicine from './Container/Medicine';
 import Login from './Container/Login';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route exact path="/about" ><About/></Route>
         <Route exact path="/contact" ><Contact/></Route>
         <Route exact path="/appointment" ><Appoinment/></Route>
+        <Route exact path="/medicine" ><medicine/></Route>
         <Route exact path="/login" ><Login/></Route>
       </Switch>
       <Footer/>
