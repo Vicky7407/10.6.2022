@@ -1,34 +1,32 @@
 import logo from './logo.svg';
 import './App.css';
-import Header from './Container/Header';
+import Header from './Components/Header';
 import Home from './Container/Home';
-import Department from './Container/Department';
-import Footer from './Container/Footer';
-import { Switch, Route } from 'react-router-dom';
-import Doctors from './Container/Doctors';
-import About from './Container/About';
-import Contact from './Container/Contact';
-import Appoinment from './Container/Appoinment';
-import Medicine from './Container/Medicine';
-import Login from './Container/Login';
-
+import Footer from './Components/Footer';
+import  Departments from "./Container/Departments";
+import Appointment from "./Container/Appointment";
+import  Contact from "./Container/Contact";
+import Medicine from "./Container/Medicine"
+import  About  from "./Container/About";
+import {Switch,Route} from "react-router-dom";
+import Doctor from './Container/Doctor';
+import Singup from './Container/Singup';
 function App() {
   return (
-    <div className="App">
-      <Header/>
+    <>
+      <Header />
       <Switch>
-        
-        <Route exact path={"/"} ><Home/></Route>
-        <Route exact path="/department" ><Department/></Route>
-        <Route exact path="/doctors" ><Doctors/></Route>
-        <Route exact path="/about" ><About/></Route>
-        <Route exact path="/contact" ><Contact/></Route>
-        <Route exact path="/appointment" ><Appoinment/></Route>
-        <Route exact path="/medicine" ><medicine/></Route>
-        <Route exact path="/login" ><Login/></Route>
+          <Route exact path="/" component={Home}></Route>
+          <Route exact path="/Departments" component={Departments}></Route>
+          <Route exact path="/Doctor" component={Doctor}></Route>
+          <Route exact path="/Appointment" component={Appointment}></Route>
+          <Route exact path="/About" component={About}></Route>
+          <Route exact path="/Medicine" component={Medicine}></Route>
+          <Route exact path="/Contact" component={Contact}></Route> 
+          <Route exact path="" component={Singup}></Route> 
       </Switch>
-      <Footer/>
-    </div>
+      <Footer /> 
+    </>
   );
 }
 
