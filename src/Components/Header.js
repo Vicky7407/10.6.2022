@@ -34,19 +34,18 @@ function Header(props) {
                                 <li><NavLink to="/Appointment" className="nav-link scrollto" >Appointment</NavLink></li>
                                 <li><NavLink to="/Medicine" className="nav-link scrollto" >Medicine</NavLink></li>
                                 <li><NavLink to="/About" className="nav-link scrollto " >About</NavLink></li>
-                                <li><NavLink to="/Contact" className="nav-link scrollto" >Contact</NavLink></li>
+                                <li><NavLink to="/Contact" className="nav-link scrollto" >Contact</NavLink></li>    
                             </ul>
                             <i className="bi bi-list mobile-nav-toggle" />
                         </nav>
                         <NavLink to="/Appointment" className="appointment-btn scrollto"><span className="d-none d-md-inline">Make an</span>
                             Appointment</NavLink>
-                        <NavLink to="/Singup" className="appointment-btn scrollto">
+                        <NavLink to="/login" className="appointment-btn scrollto">
                             <span className="d-none d-md-inline">Login/ Signup</span>
                         </NavLink>
                     </div>
                 </header>
             </div>
-
         </div>
     );
 }
