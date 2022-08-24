@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import * as yup from "yup";
 import { Formik, Form, useFormik } from "formik";
+import { ActionTypes } from "@mui/base";
 
 function Singup(props) {
   const [userType, setUsertype] = useState("login");
@@ -44,9 +45,15 @@ function Singup(props) {
     // },
     initialValues: inintVal,
     validationSchema: schema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: (values, action) => {
+      dispatch(sighUpAction(values));
+      if (userType ==='login'){
+        handlesignup();
+      }
+      action.resetForm();
+      // alert(JSON.stringify(values, null, 2));
     },
+    enableReinitialize: true,
   });
   const { errors, handleBlur, handleChange, handleSubmit, touched } = formik;
   return (
@@ -222,7 +229,7 @@ function Singup(props) {
                 </div>
               ) : (
                 (<div class="text-center mt-3">
-                  <button type="submit">Sign Up</button>
+                  <button type="submit" onClick={handlesignup}>Sign Up</button>
                 </div>)
               )}
             </div>
