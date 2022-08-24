@@ -1,5 +1,6 @@
-import {all} from './Auth.saga';
+import { watchAuth } from "./Auth.saga";
+import { all } from "redux-saga/effects";
 
-function* rootsaga(){
+export function* rootsaga(){
     yield all([watchAuth()]);
 }

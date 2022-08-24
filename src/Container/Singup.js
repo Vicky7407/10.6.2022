@@ -1,130 +1,130 @@
 import React, { useState } from "react";
 import * as yup from "yup";
 import { Formik, Form, useFormik } from "formik";
-import { ActionTypes } from "@mui/base";
+import { useDispatch } from "react-redux";
+import { signUpAction } from "../Redux/action/Auth.action";
 
-function Singup(props) {
+
+function Login(props) {
   const [userType, setUsertype] = useState("login");
-  const [reset, setReset] = useState(false);
+  const dispatch = useDispatch()
 
-  let schemaobj, inintVal;
+
+  let schemaObj, inintVal;
+
   if (userType === "login") {
-    schemaobj = {
+    schemaObj = {
       email: yup
         .string()
-        .required("Please Enter email")
-        .email("Please Enter valid Email id"),
-      password: yup.string().required("Please enter password"),
+        .required("email is requiredl")
+        .email("enter valid email"),
+      password: yup.string().required("password is required"),
     };
     inintVal = {
       email: "",
       password: "",
     };
   } else if (userType === "signup") {
-    schemaobj = {
-      name: yup.string().required("Please Enter name"),
+    schemaObj = {
+      name: yup.string().required("Name is required"),
       email: yup
         .string()
-        .required("Please Enter email")
-        .email("Please Enter valid Email id"),
-      password: yup.string().required("Please enter password"),
+        .required("email is requireds")
+        .email("enter valid email"),
+      password: yup.string().required("password is required"),
     };
     inintVal = {
       name: "",
+      email: "",
       password: "",
+    };
+  } else if (userType === "password") {
+    schemaObj = {
+      email: yup
+        .string()
+        .required("email is required")
+        .email("enter valid email"),
+    };
+    inintVal = {
       email: "",
     };
   }
 
-  let schema = yup.object().shape(schemaobj);
-
+  let schema = yup.object().shape(schemaObj);
   const formik = useFormik({
-    // initialValues: {
-    //   password: '',
-    //   email: '',
-    // },
     initialValues: inintVal,
     validationSchema: schema,
     onSubmit: (values, action) => {
-      dispatch(sighUpAction(values));
-      if (userType ==='login'){
-        handlesignup();
+
+      dispatch(signUpAction(values))
+
+
+      // alert(JSON.stringify(values, null, 2));
+      if (userType ==='login') {
+        handleLogin();
       }
       action.resetForm();
-      // alert(JSON.stringify(values, null, 2));
     },
     enableReinitialize: true,
   });
-  const { errors, handleBlur, handleChange, handleSubmit, touched } = formik;
+  const { errors, handleBlur, handleChange, handleSubmit, touched, values } = formik;
+
+  const handleLogin = () =>{
+    localStorage.setItem('Gaurav', '12121212')
+  }
+
   return (
     <section id="appointment" className="appointment">
       <div className="container">
         <div className="section-title">
-          {userType === "password" ? (
+          {userType === "password" ?  
             <h2>Reset password</h2>
-          ) : userType === "login" ? (
+           : userType === "login" ? 
             <h2>Login</h2>
-          ) : (
+           : 
             <h2>Sign Up</h2>
-          )}
+          }
         </div>
         <Formik values={formik}>
           <Form className="php-email-form" onSubmit={handleSubmit}>
             <div>
-              {userType === "login" || userType === "password" ? (
+              {userType === "login" || userType === "password" ? 
                 <div className="col-md-4 form-group row mx-auto">
                   <input
-                    type="mail"
-                    name="mail"
+                    type="email"
+                    name="email"
                     className="form-control"
-                    id="mail"
                     placeholder="Registerd email"
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    value={values.email}
                   />
-                  {errors.email && touched.email ? (
-                    <span className="error">{errors.email}</span>
-                  ) : (
-                    ""
-                  )}
+                  {errors.email && touched.email ? 
+                    <span className="error">{errors.email}</span> : ""}
                 </div>
-              ) : (
-                <div className="col-md-4 form-group row mx-auto">
-                  <input
-                    type="text"
-                    name="name"
-                    className="form-control"
-                    id="name"
-                    placeholder="Name"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  {errors.name && touched.name ? (
-                    <span className="error">{errors.name}</span>
-                  ) : (
-                    ""
-                  )}
-                </div>
-              )}
+               : 
+                <>
+                  <div className="col-md-4 form-group row mx-auto">
+                    <input
+                      type="text"
+                      name="name"
+                      className="form-control"
+                      placeholder="Name"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.name}
+                    />
+                    {errors.name && touched.name ? 
+                      <span className="error">{errors.name}</span>
+                     : 
+                      ""
+                    }
+                  </div>
+                </>
+              }
 
-              {userType === "password" ? (
-                <div className="col-md-4 form-group mt-3 mt-md-0 row mx-auto">
-                  <input
-                    type="password"
-                    className="form-control"
-                    name="password"
-                    id="password"
-                    placeholder="Client ID"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  {errors.password && touched.password ? (
-                    <span className="error">{errors.password}</span>
-                  ) : (
-                    ""
-                  )}
-                </div>
-              ) : userType === "login" ? (
+              {userType === "password" ? null 
+              : userType === "login" ? (
                 <div className="col-md-4 form-group mt-3 mt-md-0 row mx-auto">
                   <input
                     type="password"
@@ -134,6 +134,7 @@ function Singup(props) {
                     placeholder="password"
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    value={values.password}
                   />
                   {errors.password && touched.password ? (
                     <span className="error">{errors.password}</span>
@@ -144,41 +145,30 @@ function Singup(props) {
               ) : (
                 <div className="col-md-4 form-group mt-3 mt-md-0 row mx-auto">
                   <input
-                    type="mail"
-                    name="mail"
+                    type="text"
+                    name="email"
                     className="form-control"
                     id="mail"
                     placeholder="Email"
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    value={values.email}
                   />
-                  {errors.password && touched.email ? (
+                  {errors.email && touched.email ? 
                     <span className="error">{errors.email}</span>
-                  ) : (
+                   : 
                     ""
-                  )}
+                  }
+
                   <input
                     type="password"
                     name="password"
                     className="form-control mt-2"
                     id="password"
                     placeholder="Create new password"
-                    onChange={handleChange}
                     onBlur={handleBlur}
-                  />
-                  {errors.password && touched.password ? (
-                    <span className="error">{errors.password}</span>
-                  ) : (
-                    ""
-                  )}
-                  <input
-                    type="password"
-                    name="password"
-                    className="form-control mt-2"
-                    id="password"
-                    placeholder="Confirm password"
                     onChange={handleChange}
-                    onBlur={handleBlur}
+                    value={values.password}
                   />
                   {errors.password && touched.password ? (
                     <span className="error">{errors.password}</span>
@@ -187,15 +177,9 @@ function Singup(props) {
                   )}
                 </div>
               )}
-              {userType === "password" ? (
-                <div className="signup-link col-4">
-                  <a
-                    className="d-inline-block"
-                    onClick={() => setUsertype("login")}
-                  ></a>
-                </div>
-              ) : userType === "login" ? (
-                <div className="signup-link text-center col-12 justify-content-between">
+
+              {userType === "password" ? null : userType === "login" ? (
+                <div className="signup-link text-center col-4">
                   <a
                     className="d-inline-block"
                     onClick={() => setUsertype("signup")}
@@ -203,7 +187,7 @@ function Singup(props) {
                     Are you a new user?
                   </a>
                   <a
-                    className="d-inline-block"
+                    className="d-inline-block "
                     onClick={() => setUsertype("password")}
                   >
                     Forgott password?
@@ -220,17 +204,17 @@ function Singup(props) {
                 </div>
               )}
               {userType === "password" ? (
-                <div class="text-center mt-3">
+                <div className="text-center mt-3">
                   <button type="submit">Send OTP</button>
                 </div>
               ) : userType === "login" ? (
-                <div class="text-center mt-3">
-                  <button type="submit">Login</button>
+                <div className="text-center mt-3">
+                  <button type="submit" onClick={handleLogin}>Login</button>
                 </div>
               ) : (
-                (<div class="text-center mt-3">
-                  <button type="submit" onClick={handlesignup}>Sign Up</button>
-                </div>)
+                <div className="text-center mt-3">
+                  <button type="submit">Sign Up</button>
+                </div>
               )}
             </div>
           </Form>
@@ -240,4 +224,4 @@ function Singup(props) {
   );
 }
 
-export default Singup;
+export default Login;
