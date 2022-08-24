@@ -1,10 +1,15 @@
-import React from 'react';
-import {NavLink} from "react-router-dom";
+
+import React, { useContext } from 'react';
+import { NavLink } from "react-router-dom";
+import ThemeContext from "../Context/ThemeContext";
+
+
 function Header(props) {
+    const value = useContext(ThemeContext)
     return (
         <div>
             <div className="main-header">
-                <div id="topbar" className="d-flex align-items-center fixed-top">
+                <div id="topbar" className={`d-flex align-items-center fixed-top ${value.theme}`}>
                     <div className="container d-flex justify-content-between">
                         <div className="contact-info d-flex align-items-center">
                             <i className="bi bi-envelope" /> <a href="mailto:contact@example.com">cityhospital@example.com</a>
@@ -15,10 +20,16 @@ function Header(props) {
                             <a href="#" className="facebook"><i className="bi bi-facebook" /></a>
                             <a href="#" className="instagram"><i className="bi bi-instagram" /></a>
                             <a href="#" className="linkedin"><i className="bi bi-linkedin" /></a>
+
                         </div>
+
                     </div>
+                        <div className="form-check form-switch">
+                            <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" defaultChecked 
+                            onClick={()=>value.toggle_theme(value.theme)}/>
+                        </div>
                 </div>
-                <header id="header" className="fixed-top">
+                <header id="header" className={`fixed-top ${value.theme}`}>
                     <div className="container d-flex align-items-center">
                         <div className="logo">
                             <NavLink to="index.html">
@@ -34,7 +45,7 @@ function Header(props) {
                                 <li><NavLink to="/Appointment" className="nav-link scrollto" >Appointment</NavLink></li>
                                 <li><NavLink to="/Medicine" className="nav-link scrollto" >Medicine</NavLink></li>
                                 <li><NavLink to="/About" className="nav-link scrollto " >About</NavLink></li>
-                                <li><NavLink to="/Contact" className="nav-link scrollto" >Contact</NavLink></li>    
+                                <li><NavLink to="/Contact" className="nav-link scrollto" >Contact</NavLink></li>
                             </ul>
                             <i className="bi bi-list mobile-nav-toggle" />
                         </nav>

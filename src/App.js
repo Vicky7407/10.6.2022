@@ -18,11 +18,13 @@ import Forgotpass from './Container/Login/Forgotpass';
 import ListAppointment from "./Components/ListAppointment";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import PublicRoute from "./PublicRoute/PublicRoute";
+import  { ThemeProvider }  from "./Context/ThemeContext";
 
 
-function App() {
+function App(props) {
   return (
-    <>
+   <>
+   <ThemeProvider>
       <Header />
       <Switch>
           <PublicRoute exact path="/" component={Home}/>
@@ -37,7 +39,8 @@ function App() {
           <PrivateRoute exact path="/list_apt" component={ListAppointment}/>
       </Switch>
       <Footer /> 
-    </>
+      </ThemeProvider>
+      </>
   );
 }
 
