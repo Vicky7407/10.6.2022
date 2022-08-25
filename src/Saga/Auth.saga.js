@@ -1,5 +1,6 @@
 import { call, put, takeEvery, takeLatest,all } from 'redux-saga/effects'
 import * as VT from '../Redux/action/Actiontype'
+import { setAlert } from '../Redux/action/alert.action';
 import { SignInAPI, userApi } from './Authapi';
 
 function* SingUpSaga(action) {
@@ -14,6 +15,8 @@ function* SingUpSaga(action) {
 function* SignInsaga(action){
    try{
       const user = yield call(SignInAPI,action.payload);
+      yield put(setAlert({type:VT.SET_ALERT,text:"success"}))
+      console.log(user);
 
    }catch(e){
       yield put({type:"USER_FETCH_FAILED",message:e.message})

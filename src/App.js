@@ -18,11 +18,13 @@ import Singup from "./Container/Singup";
 import  { ThemeProvider }  from "./Context/ThemeContext";
 import { store } from "./Redux/Store";
 import { Provider } from "react-redux/es/exports";
+import { SnackbarProvider } from 'notistack';
 
 
 function App(props) {
   return (
    <>
+   <SnackbarProvider maxSnack={3}>
    <Provider store={store}>
    <ThemeProvider>
       <Header />
@@ -40,6 +42,7 @@ function App(props) {
       <Footer /> 
       </ThemeProvider>
       </Provider>
+      </SnackbarProvider>
       </>
   );
 }
