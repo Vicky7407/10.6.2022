@@ -6,3 +6,7 @@ export const signUpAction = (values) => (dispatch) => {
 
     console.log(values);
 }
+
+export const signInAction = (values) => (dispatch) => {
+    dispatch({type:VT.SINGIN_USER,payload:values})
+}
