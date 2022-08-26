@@ -6,5 +6,5 @@ export const setAlert = (value) =>(dispatch) =>{
 
 }
 export const resetAlert = () => (dispatch) =>{
-    dispatch({type:VT.RESET_ALERT });
+    dispatch({type:VT.RESET_ALERT  });
 }

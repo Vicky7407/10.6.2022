@@ -24,7 +24,8 @@ import { SnackbarProvider } from 'notistack';
 function App(props) {
   return (
    <>
-   <SnackbarProvider maxSnack={1}>
+   <SnackbarProvider maxSnack={1}
+   autoHideDuration={1000}>
    <Provider store={store}>
    <ThemeProvider>
       <Header />
