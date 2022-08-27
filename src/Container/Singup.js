@@ -55,10 +55,7 @@ function Login(props) {
     initialValues: inintVal,
     validationSchema: schema,
     onSubmit: (values, action) => {
-
       dispatch(signUpAction(values))
-
-
       // alert(JSON.stringify(values, null, 2));
       if (userType ==='login') {
         dispatch(signInAction(values));

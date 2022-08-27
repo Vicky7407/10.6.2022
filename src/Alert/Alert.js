@@ -1,29 +1,30 @@
 import { useSnackbar } from 'notistack';
 import React, { useEffect } from 'react';
-import  { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Alert(props) {
-    const { enqueueSnackbar } = useSnackbar();
-    const alert = useSelector(state => state.alert);
-    
+  const { enqueueSnackbar } = useSnackbar();
+  const alert = useSelector(state => state.alert);
 
-
-    useEffect(() => {
-        enqueueSnackbar(alert.text, { variant:'sucess'})
-        enqueueSnackbar(alert.text, {
+  useEffect(() => {
+      if(alert.text!==''){
+        setTimeout(() => {
+          enqueueSnackbar(alert.text, {
+            variant: alert.color,
             anchorOrigin: {
               vertical: 'top',
               horizontal: 'right'
             }
           })
-    
-    }, [alert.text])
-    
-    return (
-        <div>
-            
-        </div>
-    );
+        }, 2000);
+      }
+  }, [alert.text])
+  
+  return (
+    <div>
+      
+    </div>
+  );
 }
 
 export default Alert;

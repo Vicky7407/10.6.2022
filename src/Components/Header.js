@@ -1,4 +1,3 @@
-
 import React, { useContext } from 'react';
 import { NavLink } from "react-router-dom";
 import Alert from '../Alert/Alert';
@@ -56,7 +55,7 @@ function Header(props) {
                             <span className="d-none d-md-inline">Login/ Signup</span>
                         </NavLink>
                     </div>
-                    <Alert />
+                    <Alert/>
                 </header>
             </div>
         </div>
