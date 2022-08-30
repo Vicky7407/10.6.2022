@@ -8,10 +8,10 @@ import { getAuth } from "firebase/auth";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyAniqN3BmGqriWRUtRlwI7iq5IZoBAPsDA",
-  authDomain: "hospital-web-81ff5.firebaseapp.com",
-  projectId: "hospital-web-81ff5",
-  storageBucket: "hospital-web-81ff5.appspot.com",
+  apiKey: "AIzaSyALHVdO6-yQOoGehH4Uc2NhbPzJCzCHfTA",
+  authDomain: "hospital-7a047.firebaseapp.com",
+  projectId: "hospital-7a047",
+  storageBucket: "hospital-7a047.appspot.com",
   messagingSenderId: "32149306160",
   appId: "1:32149306160:web:ae0b1af59a78a4f7f1a6f5",
   measurementId: "G-89G30CZ552"

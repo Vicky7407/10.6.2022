@@ -1,11 +1,12 @@
 import { call, put, takeEvery, takeLatest,all } from 'redux-saga/effects'
 import * as VT from '../Redux/action/Actiontype'
 import { setAlert } from '../Redux/action/alert.action';
-import { forgotPasswdAPI, SignInAPI, userApi } from './Authapi';
+import { forgotPasswdAPI, SignInAPI, signOutAPI, userApi } from './Authapi';
 
 function* SingUpSaga(action) {
    try {
       const user = yield call(userApi, action.payload);
+      console.log(user);
       yield put(setAlert({text:user,color:"success"}));
    } catch (e) {
       // yield put({type: "USER_FETCH_FAILED", message: e.message});
@@ -18,11 +19,22 @@ function* SignInsaga(action){
       const user = yield call(SignInAPI,action.payload);
       // yield put(setAlert({type:VT.SET_ALERT,text:"success"}))
       console.log(user);
-      yield put(setAlert({text:user.payload,color:"success"}));
+      yield put(setAlert({text:user,color:"success"}));
 
    }catch(e){
       // yield put({type:"USER_FETCH_FAILED",message:e.message})
-      yield put(setAlert({text:e.payload,color:"error"}));
+      yield put(setAlert({text:e,color:"error"}));
+   }
+}
+function* signOutsaga(action){
+   console.log(action,"action Done");
+   try{
+      const user=yield call(signOutAPI, action.payload);
+      console.log(user);
+      yield put(setAlert({text:user,color:"success"}))
+   }catch(e){
+      console.log(e);
+      yield put(setAlert({text:e, color:"error"}))
    }
 }
 function* forgotPasswd(action){
@@ -46,12 +58,16 @@ function* watchSignin(){
 function* watchForgotPasswd(){
    yield takeEvery(VT.FORGOT_PASSWORD,forgotPasswd)
 }
+function* watchsignout(){
+   yield takeEvery(VT.SIGNOUT_USER,signOutsaga)
+}
 
 export function* watchAuth(){
    yield all([
      watchSaga(),
      watchSignin(),
-     watchForgotPasswd()
+     watchForgotPasswd(),
+     watchsignout()
 
   ]);
 }

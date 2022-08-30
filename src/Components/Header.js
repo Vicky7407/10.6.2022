@@ -1,11 +1,18 @@
 import React, { useContext } from 'react';
+import { useDispatch } from 'react-redux';
 import { NavLink } from "react-router-dom";
 import Alert from '../Alert/Alert';
 import ThemeContext from "../Context/ThemeContext";
+import { logOutAction } from '../Redux/action/Auth.action';
 
 
 function Header(props) {
     const value = useContext(ThemeContext)
+    const dispatch=useDispatch();
+    const handleLogOut = () =>{
+        console.log("done");
+        dispatch(logOutAction())
+    }
     return (
         <div>
             <div className="main-header">
@@ -24,10 +31,10 @@ function Header(props) {
                         </div>
 
                     </div>
-                        <div className="form-check form-switch">
-                            <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" defaultChecked 
-                            onClick={()=>value.toggle_theme(value.theme)}/>
-                        </div>
+                    <div className="form-check form-switch">
+                        <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" defaultChecked
+                            onClick={() => value.toggle_theme(value.theme)} />
+                    </div>
                 </div>
                 <header id="header" className={`fixed-top ${value.theme}`}>
                     <div className="container d-flex align-items-center">
@@ -51,11 +58,14 @@ function Header(props) {
                         </nav>
                         <NavLink to="/Appointment" className="appointment-btn scrollto"><span className="d-none d-md-inline">Make an</span>
                             Appointment</NavLink>
-                        <NavLink to="/login" className="appointment-btn scrollto">
+                        <NavLink to="/Singup" className="appointment-btn scrollto">
                             <span className="d-none d-md-inline">Login/ Signup</span>
                         </NavLink>
+                        <NavLink to="/Singout" className="appointment-btn scrollto">
+                            <span className="d-none d-md-inline" onClick={handleLogOut}>Log Out</span>
+                        </NavLink>
                     </div>
-                    <Alert/>
+                    <Alert />
                 </header>
             </div>
         </div>

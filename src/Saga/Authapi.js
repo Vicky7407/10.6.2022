@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged, sendEmailVerification, signInWithEmailAndPassword } from "firebase/auth"
+import { createUserWithEmailAndPassword, onAuthStateChanged, sendEmailVerification, signInWithEmailAndPassword, signOut } from "firebase/auth"
 import { auth } from "../Firebase"; 
 
 export const userApi = (values) => {
@@ -60,6 +60,18 @@ export const SignInAPI = (values) => {
       });
   });
 };
+export const signOutAPI = () => {
+  // console.log("logout successfully");
+   return new Promise((resolve,reject) => {
+        signOut(auth).then(() => {
+          resolve("Sign-out successful")
+        }).catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            reject(errorCode,"something went to wrong");
+        });
+   });
+}
 export const forgotPasswdAPI =(values) =>{
   console.log("send OTP your Email",values);
 }
