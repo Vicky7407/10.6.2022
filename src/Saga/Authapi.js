@@ -60,3 +60,6 @@ export const SignInAPI = (values) => {
       });
   });
 };
+export const forgotPasswdAPI =(values) =>{
+  console.log("send OTP your Email",values);
+}
