@@ -5,7 +5,7 @@ import { resetAlert } from '../Redux/action/alert.action';
 
 function Alert(props) {
   const { enqueueSnackbar, closeSnackbar} = useSnackbar();
-  const alert = useSelector(state => state.alert);
+  const alert=useSelector(state => state.alert);
 
   const dispatch=useDispatch()
 

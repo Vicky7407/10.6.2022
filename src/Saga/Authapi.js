@@ -1,5 +1,12 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged, sendEmailVerification, signInWithEmailAndPassword, signOut } from "firebase/auth"
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  sendEmailVerification,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 import { auth } from "../Firebase"; 
+// import { history } from "../history";
 
 export const userApi = (values) => {
   console.log("newUser", values);
@@ -43,7 +50,8 @@ export const SignInAPI = (values) => {
         if(!user.emailVerified){
           reject("Please verify your email");
         }else{
-          resolve("Login in successfully")
+          resolve(user);
+          // history.push("/");
         }
         // ...
       })
@@ -55,12 +63,14 @@ export const SignInAPI = (values) => {
         }else if(errorCode.localeCompare("auth/user-not-found")===0){
           reject("User not found");
         }else{
-          reject("");
+          reject("LOGIN ERROR:Wrong Email or Password")
         }
       });
   });
 };
+
 export const signOutAPI = () => {
+  console.log("logout successfully");
    return new Promise((resolve,reject) => {
         signOut(auth).then(() => {
           resolve("Sign-out successful")
@@ -72,5 +82,5 @@ export const signOutAPI = () => {
    });
 }
 export const forgotPasswdAPI =(values) =>{
-  console.log("send OTP your Email",values);
+    console.log("send OTP your Email",values);
 }

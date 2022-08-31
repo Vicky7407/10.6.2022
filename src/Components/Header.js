@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector} from 'react-redux';
 import { NavLink } from "react-router-dom";
 import Alert from '../Alert/Alert';
 import ThemeContext from "../Context/ThemeContext";
@@ -8,8 +8,9 @@ import { logOutAction } from '../Redux/action/Auth.action';
 
 function Header(props) {
     const value = useContext(ThemeContext)
-    const dispatch=useDispatch();
-    const handleLogOut = () =>{
+    const dispatch = useDispatch();
+    const auth =useSelector(state => state.auth)
+    const handleLogOut = () => {
         console.log("done");
         dispatch(logOutAction())
     }
@@ -58,12 +59,15 @@ function Header(props) {
                         </nav>
                         <NavLink to="/Appointment" className="appointment-btn scrollto"><span className="d-none d-md-inline">Make an</span>
                             Appointment</NavLink>
-                        <NavLink to="/Singup" className="appointment-btn scrollto">
-                            <span className="d-none d-md-inline">Login/ Signup</span>
-                        </NavLink>
-                        <NavLink to="/Singout" className="appointment-btn scrollto">
-                            <span className="d-none d-md-inline" onClick={handleLogOut}>Log Out</span>
-                        </NavLink>
+                        {
+                            auth.user === null ?
+                                <NavLink to="/login" className="appointment-btn scrollto">
+                                    <span className="d-none d-md-inline">Login/ Signup</span>
+                                </NavLink> :
+                                <NavLink to="/" className="appointment-btn scrollto">
+                                    <span className="d-none d-md-inline" onClick={handleLogOut}>Log Out</span>
+                                </NavLink>
+                        }
                     </div>
                     <Alert />
                 </header>

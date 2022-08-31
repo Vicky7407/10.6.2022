@@ -1,6 +1,7 @@
 import { call, put, takeEvery, takeLatest,all } from 'redux-saga/effects'
 import * as VT from '../Redux/action/Actiontype'
 import { setAlert } from '../Redux/action/alert.action';
+import { SingedIn } from '../Redux/action/Auth.action';
 import { forgotPasswdAPI, SignInAPI, signOutAPI, userApi } from './Authapi';
 
 function* SingUpSaga(action) {
@@ -19,7 +20,8 @@ function* SignInsaga(action){
       const user = yield call(SignInAPI,action.payload);
       // yield put(setAlert({type:VT.SET_ALERT,text:"success"}))
       console.log(user);
-      yield put(setAlert({text:user,color:"success"}));
+      yield put(SingedIn(user))
+      yield put(setAlert({text:"Login in successfully",color:"success"}));
 
    }catch(e){
       // yield put({type:"USER_FETCH_FAILED",message:e.message})
@@ -29,7 +31,7 @@ function* SignInsaga(action){
 function* signOutsaga(action){
    console.log(action,"action Done");
    try{
-      const user=yield call(signOutAPI, action.payload);
+      const user=yield call(signOutAPI,action.payload);
       console.log(user);
       yield put(setAlert({text:user,color:"success"}))
    }catch(e){
@@ -55,11 +57,13 @@ function* watchSignin(){
    yield takeEvery(VT.SINGIN_USER,SignInsaga)
 }
 
+function* watchlogOut(){
+   yield takeEvery(VT.SIGNOUT_USER,signOutsaga)
+}
+
+
 function* watchForgotPasswd(){
    yield takeEvery(VT.FORGOT_PASSWORD,forgotPasswd)
-}
-function* watchsignout(){
-   yield takeEvery(VT.SIGNOUT_USER,signOutsaga)
 }
 
 export function* watchAuth(){
@@ -67,7 +71,7 @@ export function* watchAuth(){
      watchSaga(),
      watchSignin(),
      watchForgotPasswd(),
-     watchsignout()
+     watchlogOut()
 
   ]);
 }

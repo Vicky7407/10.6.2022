@@ -16,3 +16,7 @@ export const logOutAction = () => (dispatch) =>{
     console.log("Done runing");
     dispatch({type:VT.SIGNOUT_USER});
 }
+
+export const SingedIn = (values) => (dispatch) =>{
+    dispatch({type:VT.SIGNEDIN_USER,payload:values})
+}
