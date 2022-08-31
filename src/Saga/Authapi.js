@@ -61,7 +61,6 @@ export const SignInAPI = (values) => {
   });
 };
 export const signOutAPI = () => {
-  // console.log("logout successfully");
    return new Promise((resolve,reject) => {
         signOut(auth).then(() => {
           resolve("Sign-out successful")
