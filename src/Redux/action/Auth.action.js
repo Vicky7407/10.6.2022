@@ -13,10 +13,12 @@ export const forgotPasswd = (values) =>(dispatch) =>{
  } 
  
 export const logOutAction = () => (dispatch) =>{
-    console.log("Done runing");
     dispatch({type:VT.SIGNOUT_USER});
 }
 
-export const SingedIn = (values) => (dispatch) =>{
+export const SignedInAction = (values) => (dispatch) =>{
     dispatch({type:VT.SIGNEDIN_USER,payload:values})
+}
+export const logedOutAction = () => (dispatch) => {
+    dispatch({type:VT.SIGNEDOUT_USER})
 }

@@ -14,8 +14,14 @@ export const reducerAuth =(state=initVal,action) =>{
                 user:action.payload,
                 isLoading:false,
                 error:false,
-
             }
+            case VT.SIGNEDOUT_USER:
+                return{
+                    ...state,
+                    user:null,
+                    isLoading:false,
+                    error:false,
+                }
         default:
             return state;
      }

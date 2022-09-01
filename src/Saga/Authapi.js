@@ -6,7 +6,8 @@ import {
   signOut,
 } from "firebase/auth";
 import { auth } from "../Firebase"; 
-// import { history } from "../history";
+import { history } from "../History";
+
 
 export const userApi = (values) => {
   console.log("newUser", values);
@@ -19,8 +20,8 @@ export const userApi = (values) => {
         const user = userCredential.user;
 
         onAuthStateChanged(auth, (user) => {
-          if (user) {
-            // User is signed in
+          if(user){
+            // User is signed in.
             const uid = user.uid;
             sendEmailVerification(auth.currentUser).then(() => {
               console.log(auth.currentUser);
@@ -39,7 +40,7 @@ export const userApi = (values) => {
       });
   });
 };
-
+    
 export const SignInAPI = (values) => {
   // console.log("sign in successfully",values);
   return new Promise((resolve, reject) => {
@@ -51,7 +52,7 @@ export const SignInAPI = (values) => {
           reject("Please verify your email");
         }else{
           resolve(user);
-          // history.push("/");
+          history.push("/");
         }
         // ...
       })
@@ -73,11 +74,12 @@ export const signOutAPI = () => {
   console.log("logout successfully");
    return new Promise((resolve,reject) => {
         signOut(auth).then(() => {
-          resolve("Sign-out successful")
+          resolve("Sign-out successful");
+          history.push("/login");
         }).catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
-            reject(errorCode,"something went to wrong");
+            reject("something went to wrong");
         });
    });
 }

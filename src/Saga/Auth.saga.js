@@ -1,7 +1,7 @@
 import { call, put, takeEvery, takeLatest,all } from 'redux-saga/effects'
 import * as VT from '../Redux/action/Actiontype'
 import { setAlert } from '../Redux/action/alert.action';
-import { SingedIn } from '../Redux/action/Auth.action';
+import { logedOutAction, SignedInAction, SingedIn } from '../Redux/action/Auth.action';
 import { forgotPasswdAPI, SignInAPI, signOutAPI, userApi } from './Authapi';
 
 function* SingUpSaga(action) {
@@ -9,7 +9,7 @@ function* SingUpSaga(action) {
       const user = yield call(userApi, action.payload);
       console.log(user);
       yield put(setAlert({text:user,color:"success"}));
-   } catch (e) {
+   } catch(e) {
       // yield put({type: "USER_FETCH_FAILED", message: e.message});
       yield put(setAlert({text:e, color:"error"}));
    }
@@ -20,7 +20,7 @@ function* SignInsaga(action){
       const user = yield call(SignInAPI,action.payload);
       // yield put(setAlert({type:VT.SET_ALERT,text:"success"}))
       console.log(user);
-      yield put(SingedIn(user))
+      yield put(SignedInAction(user))
       yield put(setAlert({text:"Login in successfully",color:"success"}));
 
    }catch(e){
@@ -32,7 +32,7 @@ function* signOutsaga(action){
    console.log(action,"action Done");
    try{
       const user=yield call(signOutAPI,action.payload);
-      console.log(user);
+      yield put(logedOutAction())
       yield put(setAlert({text:user,color:"success"}))
    }catch(e){
       console.log(e);

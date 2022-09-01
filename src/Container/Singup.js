@@ -55,7 +55,7 @@ function Login(props) {
     initialValues: inintVal,
     validationSchema: schema,
     onSubmit: (values, action) => {
-      dispatch(signUpAction(values))
+      dispatch(signInAction(values))
       // alert(JSON.stringify(values, null, 2));
       if (userType ==='login') {
         dispatch(signInAction(values));
@@ -71,7 +71,7 @@ function Login(props) {
   const { errors, handleBlur, handleChange, handleSubmit, touched, values } = formik;
 
   const handleLogin = () =>{
-    localStorage.setItem('vinay', '12121212')
+    localStorage.setItem('vinay', '12121')
   }
 
   return (

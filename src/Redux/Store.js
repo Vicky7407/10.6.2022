@@ -2,7 +2,6 @@ import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import thunk from 'redux-thunk'
 import {rootsaga} from '../Saga/rootsaga';
-import { watchAuth } from '../Saga/Auth.saga'
 import { persistStore, persistReducer } from 'redux-persist'
 import { rootReducer } from './Rootreducer';
 import storage from 'redux-persist/lib/storage'

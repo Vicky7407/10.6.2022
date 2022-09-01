@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import  { React, useContext } from 'react';
 import { useDispatch,useSelector} from 'react-redux';
 import { NavLink } from "react-router-dom";
 import Alert from '../Alert/Alert';
@@ -64,7 +64,7 @@ function Header(props) {
                                 <NavLink to="/login" className="appointment-btn scrollto">
                                     <span className="d-none d-md-inline">Login/ Signup</span>
                                 </NavLink> :
-                                <NavLink to="/" className="appointment-btn scrollto">
+                                <NavLink to="//Signup" className="appointment-btn scrollto">
                                     <span className="d-none d-md-inline" onClick={handleLogOut}>Log Out</span>
                                 </NavLink>
                         }
