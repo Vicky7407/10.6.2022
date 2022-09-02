@@ -1,8 +1,10 @@
 import {
   createUserWithEmailAndPassword,
+  GoogleAuthProvider,
   onAuthStateChanged,
   sendEmailVerification,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
 } from "firebase/auth";
 import { auth } from "../Firebase"; 
@@ -52,8 +54,9 @@ export const SignInAPI = (values) => {
           reject("Please verify your email");
         }else{
           resolve(user);
-          history.push("/");
+         
         }
+        history.push("/Login");
         // ...
       })
       .catch((error) => {
@@ -69,6 +72,25 @@ export const SignInAPI = (values) => {
       });
   });
 };
+export const googleSigninAPI = () => {
+  return new Promise((resolve,reject) => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+    .then((result) => {
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      const user = result.user;
+      resolve({payload:user});
+      history.push("/");
+    }).catch((error) => {
+      const errorCode = error.code;
+      reject(errorCode);
+      const errorMessage = error.message;
+      const email = error.customData.email;
+      const credential = GoogleAuthProvider.credentialFromError(error);
+    })
+  });
+}
 
 export const signOutAPI = () => {
   console.log("logout successfully");

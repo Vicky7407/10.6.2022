@@ -1,8 +1,8 @@
 import { call, put, takeEvery, takeLatest,all } from 'redux-saga/effects'
 import * as VT from '../Redux/action/Actiontype'
 import { setAlert } from '../Redux/action/alert.action';
-import { logedOutAction, SignedInAction, SingedIn } from '../Redux/action/Auth.action';
-import { forgotPasswdAPI, SignInAPI, signOutAPI, userApi } from './Authapi';
+import {googleSignedInAction , logedOutAction, SignedInAction, SingedIn } from '../Redux/action/Auth.action';
+import { forgotPasswdAPI, googleSigninAPI ,SignInAPI, signOutAPI, userApi } from './Authapi';
 
 function* SingUpSaga(action) {
    try {
@@ -39,6 +39,20 @@ function* signOutsaga(action){
       yield put(setAlert({text:e, color:"error"}))
    }
 }
+function* googleSignInsaga(action){
+   try{
+      const user = yield call(googleSigninAPI);
+      yield put(googleSignedInAction(user));
+      yield put(setAlert({text:"Login in successfully",color:"success"}))
+
+   }catch(e){
+      console.log(e);
+      // yield put({type:"USER_FETCH_FAILED",message:e.message})
+      yield put(setAlert({text:e, color:"error"}))
+
+
+   }
+}
 function* forgotPasswd(action){
    try{
       const user = yield call(forgotPasswdAPI,action.payload);
@@ -47,6 +61,10 @@ function* forgotPasswd(action){
       yield put({type:"USER_FETCH_FAILED",message:e.message})
    }
 }
+function* watchGoogleSignin(){
+   yield takeEvery(VT.GOOGLE_SIGN_USER,googleSignInsaga)
+}
+
 
 function* watchSaga() {
   yield takeEvery(VT.SINGUP_USER, SingUpSaga);
@@ -71,7 +89,8 @@ export function* watchAuth(){
      watchSaga(),
      watchSignin(),
      watchForgotPasswd(),
-     watchlogOut()
+     watchlogOut(),
+     watchGoogleSignin()
 
   ]);
 }

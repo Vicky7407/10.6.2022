@@ -2,13 +2,17 @@ import React, { useState } from "react";
 import * as yup from "yup";
 import { Formik, Form, useFormik } from "formik";
 import { useDispatch } from "react-redux";
-import { forgotPasswd, signInAction, signUpAction } from "../Redux/action/Auth.action";
+import { NavLink, useHistory } from "react-router-dom";
+import { forgotPasswd, googleSignedInAction, signInAction, signUpAction } from "../Redux/action/Auth.action";
 
 
 function Login(props) {
   const [userType, setUsertype] = useState("login");
   const dispatch = useDispatch()
-
+  const history = useHistory();
+  const handleGoogle = () =>{
+    dispatch(googleSignedInAction());
+  }
 
   let schemaObj, inintVal;
 
@@ -57,11 +61,11 @@ function Login(props) {
     onSubmit: (values, action) => {
       dispatch(signInAction(values))
       // alert(JSON.stringify(values, null, 2));
-      if (userType ==='login') {
+      if (userType === 'login') {
         dispatch(signInAction(values));
-      }else if(userType==='signup'){
+      } else if (userType === 'signup') {
         dispatch(signUpAction(values));
-      }else if(userType==="password"){
+      } else if (userType === "password") {
         dispatch(forgotPasswd(values));
       }
       action.resetForm();
@@ -70,26 +74,27 @@ function Login(props) {
   });
   const { errors, handleBlur, handleChange, handleSubmit, touched, values } = formik;
 
-  const handleLogin = () =>{
+  const handleLogin = () => {
     localStorage.setItem('vinay', '12121')
+    history.push("/login");
   }
 
   return (
     <section id="appointment" className="appointment">
       <div className="container">
         <div className="section-title">
-          {userType === "password" ?  
+          {userType === "password" ?
             <h2>Reset password</h2>
-           : userType === "login" ? 
-            <h2>Login</h2>
-           : 
-            <h2>Sign Up</h2>
+            : userType === "login" ?
+              <h2>Login</h2>
+              :
+              <h2>Sign Up</h2>
           }
         </div>
         <Formik values={formik}>
           <Form className="php-email-form" onSubmit={handleSubmit}>
             <div>
-              {userType === "login" || userType === "password" ? 
+              {userType === "login" || userType === "password" ?
                 <div className="col-md-4 form-group row mx-auto">
                   <input
                     type="email"
@@ -100,10 +105,10 @@ function Login(props) {
                     onBlur={handleBlur}
                     value={values.email}
                   />
-                  {errors.email && touched.email ? 
+                  {errors.email && touched.email ?
                     <span className="error">{errors.email}</span> : ""}
                 </div>
-               : 
+                :
                 <>
                   <div className="col-md-4 form-group row mx-auto">
                     <input
@@ -115,69 +120,69 @@ function Login(props) {
                       onBlur={handleBlur}
                       value={values.name}
                     />
-                    {errors.name && touched.name ? 
+                    {errors.name && touched.name ?
                       <span className="error">{errors.name}</span>
-                     : 
+                      :
                       ""
                     }
                   </div>
                 </>
               }
 
-              {userType === "password" ? null 
-              : userType === "login" ? (
-                <div className="col-md-4 form-group mt-3 mt-md-0 row mx-auto">
-                  <input
-                    type="password"
-                    className="form-control"
-                    name="password"
-                    id="password"
-                    placeholder="password"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.password}
-                  />
-                  {errors.password && touched.password ? (
-                    <span className="error">{errors.password}</span>
-                  ) : (
-                    ""
-                  )}
-                </div>
-              ) : (
-                <div className="col-md-4 form-group mt-3 mt-md-0 row mx-auto">
-                  <input
-                    type="text"
-                    name="email"
-                    className="form-control"
-                    id="mail"
-                    placeholder="Email"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.email}
-                  />
-                  {errors.email && touched.email ? 
-                    <span className="error">{errors.email}</span>
-                   : 
-                    ""
-                  }
+              {userType === "password" ? null
+                : userType === "login" ? (
+                  <div className="col-md-4 form-group mt-3 mt-md-0 row mx-auto">
+                    <input
+                      type="password"
+                      className="form-control"
+                      name="password"
+                      id="password"
+                      placeholder="password"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.password}
+                    />
+                    {errors.password && touched.password ? (
+                      <span className="error">{errors.password}</span>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                ) : (
+                  <div className="col-md-4 form-group mt-3 mt-md-0 row mx-auto">
+                    <input
+                      type="text"
+                      name="email"
+                      className="form-control"
+                      id="mail"
+                      placeholder="Email"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.email}
+                    />
+                    {errors.email && touched.email ?
+                      <span className="error">{errors.email}</span>
+                      :
+                      ""
+                    }
 
-                  <input
-                    type="password"
-                    name="password"
-                    className="form-control mt-2"
-                    id="password"
-                    placeholder="Create new password"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.password}
-                  />
-                  {errors.password && touched.password ? (
-                    <span className="error">{errors.password}</span>
-                  ) : (
-                    ""
-                  )}
-                </div>
-              )}
+                    <input
+                      type="password"
+                      name="password"
+                      className="form-control mt-2"
+                      id="password"
+                      placeholder="Create new password"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.password}
+                    />
+                    {errors.password && touched.password ? (
+                      <span className="error">{errors.password}</span>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                )}
 
               {userType === "password" ? null : userType === "login" ? (
                 <div className="signup-link text-center col-4">
@@ -217,6 +222,11 @@ function Login(props) {
                   <button type="submit">Sign Up</button>
                 </div>
               )}
+              <div className="d-lg-flex social-links">
+                <a className="google" onClick={handleGoogle}>
+                  <i className="bi bi-google" />
+                </a>
+              </div>
             </div>
           </Form>
         </Formik>
