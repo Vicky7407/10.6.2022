@@ -1,8 +1,10 @@
 import {
   createUserWithEmailAndPassword,
+  getAuth,
   GoogleAuthProvider,
   onAuthStateChanged,
   sendEmailVerification,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
@@ -103,6 +105,24 @@ export const signOutAPI = () => {
         });
    });
 }
-export const forgotPasswdAPI =(values) =>{
-    console.log("send OTP your Email",values);
-}
+// export const forgotPasswdAPI =(values) =>{
+//     console.log("send OTP your Email",values);
+// }
+export const resetPasswordAPI = ({email}) => {
+  return new Promise((resolve, reject) => {
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        resolve({payload:"Password reset link successfully set on email"})
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+
+        if (errorCode.localeCompare("auth/invalid-value-(email),-starting-an-object-on-a-scalar-field") === 0) {
+          reject("Please enter registred email")
+        } else {
+          reject(errorCode)
+        }
+      });
+  });
+};

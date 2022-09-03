@@ -22,6 +22,11 @@ export const SignedInAction = (values) => (dispatch) =>{
 export const logedOutAction = () => (dispatch) => {
     dispatch({type:VT.SIGNEDOUT_USER})
 }
+
+export const resetPasswordAction = (mail) => (dispatch) => {
+    dispatch({type: VT.PASSWOED_RESET, payload:mail})
+}
+
 export const googleSignedInAction = () =>(dispatch) => {
     dispatch({type:VT.GOOGLE_SIGN_USER});
 }

@@ -21,7 +21,7 @@ function Contact(props) {
           alert(JSON.stringify(values, null, 2));
         },
       });
-      const { errors, handleBlur, handleChange, handleSubmit, value, touched } = formik;
+      const { errors, handleBlur, handleChange, handleSubmit, touched } = formik;
     return (
         <div>
             <main>

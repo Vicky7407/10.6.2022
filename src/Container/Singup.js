@@ -2,22 +2,22 @@ import React, { useState } from "react";
 import * as yup from "yup";
 import { Formik, Form, useFormik } from "formik";
 import { useDispatch } from "react-redux";
-import { forgotPasswd, googleSignedInAction, signInAction, signUpAction } from "../Redux/action/Auth.action";
+import { googleSignedInAction, resetPasswordAction, signInAction, signUpAction } from "../Redux/action/Auth.action";
 
 
 function Login(props) {
   const [userType, setUsertype] = useState("login");
   const dispatch = useDispatch()
   // const history = useHistory();
-  
+
   let schemaObj, inintVal;
-  
+
   if (userType === "login") {
     schemaObj = {
       email: yup
-      .string()
-      .required("email is requiredl")
-      .email("enter valid email"),
+        .string()
+        .required("email is requiredl")
+        .email("enter valid email"),
       password: yup.string().required("password is required"),
     };
     inintVal = {
@@ -28,9 +28,9 @@ function Login(props) {
     schemaObj = {
       name: yup.string().required("Name is required"),
       email: yup
-      .string()
-      .required("email is requireds")
-      .email("enter valid email"),
+        .string()
+        .required("email is requireds")
+        .email("enter valid email"),
       password: yup.string().required("password is required"),
     };
     inintVal = {
@@ -41,15 +41,15 @@ function Login(props) {
   } else if (userType === "password") {
     schemaObj = {
       email: yup
-      .string()
-      .required("email is required")
-      .email("enter valid email"),
+        .string()
+        .required("email is required")
+        .email("enter valid email"),
     };
     inintVal = {
       email: "",
     };
   }
-  
+
   let schema = yup.object().shape(schemaObj);
   const formik = useFormik({
     initialValues: inintVal,
@@ -62,21 +62,23 @@ function Login(props) {
       } else if (userType === 'signup') {
         dispatch(signUpAction(values));
       } else if (userType === "password") {
-        dispatch(forgotPasswd(values));
       }
       action.resetForm();
     },
     enableReinitialize: true,
   });
   const { errors, handleBlur, handleChange, handleSubmit, touched, values } = formik;
-  
+
   const handleLogin = () => {
     localStorage.setItem('vinay', '12121')
   }
-  const handleGoogle = () =>{
+  const handleGoogle = () => {
     dispatch(googleSignedInAction());
   }
-  
+  const handelResetpass = () =>{
+    dispatch(resetPasswordAction(values));
+  }
+
   return (
     <section id="appointment" className="appointment">
       <div className="container">
@@ -190,12 +192,10 @@ function Login(props) {
                   >
                     Are you a new user?
                   </a>
-                  <a
-                    className="d-inline-block "
-                    onClick={() => setUsertype("password")}
-                  >
-                    Forgott password?
-                  </a>
+                  <div className="text-center mt-3">
+                    {/* <button type="submit">Send OTP</button> */}
+                    <button type="submit" onClick={handelResetpass}>Send reset link</button>
+                  </div>
                 </div>
               ) : (
                 <div className="signup-link col-4">
