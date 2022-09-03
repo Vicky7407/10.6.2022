@@ -1,4 +1,5 @@
 import { call, put, takeEvery, takeLatest,all } from 'redux-saga/effects'
+import { history } from '../History';
 import * as VT from '../Redux/action/Actiontype'
 import { setAlert } from '../Redux/action/alert.action';
 import {googleSignedInAction , logedOutAction, SignedInAction, SingedIn } from '../Redux/action/Auth.action';
@@ -22,6 +23,7 @@ function* SignInsaga(action){
       console.log(user);
       yield put(SignedInAction(user))
       yield put(setAlert({text:"Login in successfully",color:"success"}));
+      history.push("/");
 
    }catch(e){
       // yield put({type:"USER_FETCH_FAILED",message:e.message})
@@ -34,6 +36,7 @@ function* signOutsaga(action){
       const user=yield call(signOutAPI,action.payload);
       yield put(logedOutAction())
       yield put(setAlert({text:user,color:"success"}))
+      history.push("/login")
    }catch(e){
       console.log(e);
       yield put(setAlert({text:e, color:"error"}))
@@ -42,7 +45,7 @@ function* signOutsaga(action){
 function* googleSignInsaga(action){
    try{
       const user = yield call(googleSigninAPI);
-      yield put(googleSignedInAction(user));
+      yield put(SignedInAction(user));
       console.log(action.payload);
       yield put(setAlert({text:"Login in successfully",color:"success"}))
 

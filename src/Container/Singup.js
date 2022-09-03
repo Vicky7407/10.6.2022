@@ -221,7 +221,7 @@ function Login(props) {
                 </div>
               )}
               <div className="d-lg-flex social-links">
-                <a className="google" onClick={handleGoogle}>
+                <a className="google" onClick={handleGoogle}  >
                   <i className="bi bi-google" />
                 </a>
               </div>
