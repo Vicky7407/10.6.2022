@@ -23,5 +23,5 @@ export const logedOutAction = () => (dispatch) => {
     dispatch({type:VT.SIGNEDOUT_USER})
 }
 export const googleSignedInAction = () =>(dispatch) => {
-    dispatch({type:VT.GOOGLE_SIGN_USER})
+    dispatch({type:VT.GOOGLE_SIGN_USER});
 }

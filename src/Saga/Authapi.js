@@ -54,9 +54,8 @@ export const SignInAPI = (values) => {
           reject("Please verify your email");
         }else{
           resolve(user);
-         
+          history.push("/");
         }
-        history.push("/Login");
         // ...
       })
       .catch((error) => {

@@ -17,4 +17,4 @@ function Publicroute({component:Component,restricted =false, ...rest}) {
     );
 }
 
-export default Publicroute;
+export default Publicroute;       

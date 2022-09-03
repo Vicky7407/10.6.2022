@@ -43,11 +43,11 @@ function* googleSignInsaga(action){
    try{
       const user = yield call(googleSigninAPI);
       yield put(googleSignedInAction(user));
+      console.log(action.payload);
       yield put(setAlert({text:"Login in successfully",color:"success"}))
 
    }catch(e){
       console.log(e);
-      // yield put({type:"USER_FETCH_FAILED",message:e.message})
       yield put(setAlert({text:e, color:"error"}))
 
 
